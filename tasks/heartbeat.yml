@@ -27,7 +27,13 @@
     group: root
     mode: 0777
 
-- name: Start the heartbeat script
+- name: Start the heartbeat script for ubuntu
   service:
     name: heartbeat_to_riemann
     state: started
+  when: ansible_os_family == "Debian"
+
+- name: Start the heartbeat script for centos
+  command: /sbin/initctl start heartbeat_to_riemann
+  changed_when: false
+  when: ansible_os_family == "RedHat"
