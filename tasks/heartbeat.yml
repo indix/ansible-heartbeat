@@ -1,8 +1,15 @@
 ---
 
-- name: Install bernhard client
+- name: Install bernhard client for centos
   pip:
     name: bernhard
+    executable: /usr/local/bin/pip
+  when: ansible_os_family == "RedHat"
+
+- name: Install bernhard client for ubuntu
+  pip:
+    name: bernhard
+  when: ansible_os_family == "Debian"
 
 - name: Create the script for heartbeat
   template:
