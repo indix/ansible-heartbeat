@@ -22,10 +22,10 @@ event = {
 }
 
 # Starting a Riemann client.
-client = bernhard.Client(host='{{ riemann_host }}')
+client = bernhard.Client(host="{{ riemann_host }}")
 
 while True:
 #    print "Sending Heartbeat "
     client.send(event)
-    time.sleep(10)
+    time.sleep({{ interval }})
 # print "System down"
