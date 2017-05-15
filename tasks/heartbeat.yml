@@ -6,9 +6,9 @@
 
 - name: Create the script for heartbeat
   template:
-    src: heartbeat.py
+    src: riemannHeartbeat.py
     dest: /root/riemannHeartbeat.py
-    ower: root
+    owner: root
     group: root
     mode: 0777
 

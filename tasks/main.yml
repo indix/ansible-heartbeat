@@ -2,5 +2,5 @@
 # tasks file for ansible-heartbeat
 
 - name: Include heartbeat.yml
-  include: hearbeat.yml
+  include: heartbeat.yml
   when: enable_heartbeat
