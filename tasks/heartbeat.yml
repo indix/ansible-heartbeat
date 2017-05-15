@@ -1,0 +1,26 @@
+---
+
+- name: Install bernhard client
+  pip:
+    name: bernhard
+
+- name: Create the script for heartbeat
+  template:
+    src: heartbeat.py
+    dest: /root/riemannHeartbeat.py
+    ower: root
+    group: root
+    mode: 0777
+
+- name: Setup upstart script for heartbeat
+  template:
+    src: heartbeat.conf
+    dest: /etc/init/heartbeat_to_riemann.conf
+    owner: root
+    group: root
+    mode: 0777
+
+- name: Start the heartbeat script
+  service:
+    name: heartbeat_to_riemann
+    state: started
