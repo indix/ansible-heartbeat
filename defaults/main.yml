@@ -2,5 +2,5 @@
 # defaults file for ansible-heartbeat
 
 enable_heartbeat: True
-interval: '10s'
+interval: '10'
 riemann_host: 'localhost'
