@@ -34,6 +34,6 @@
   when: ansible_os_family == "Debian"
 
 - name: Start the heartbeat script for centos
-  command: /sbin/initctl start heartbeat_to_riemann
+  command: /sbin/initctl restart heartbeat_to_riemann
   changed_when: false
   when: ansible_os_family == "RedHat"
