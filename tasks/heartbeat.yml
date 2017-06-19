@@ -19,6 +19,12 @@
     group: root
     mode: 0777
 
+- name: Check if upstart is installed
+  command: /usr/bin/which initctl
+  register: upstart_stat
+  ignore_errors: yes
+  when: ansible_os_family == "Debian"
+
 - name: Setup upstart script for heartbeat
   template:
     src: heartbeat.conf
@@ -26,6 +32,32 @@
     owner: root
     group: root
     mode: 0777
+  when: ansible_os_family == "Debian" and upstart_stat.stdout == "/sbin/initctl"
+
+- name: Setup upstart script for heartbeat
+  template:
+    src: heartbeat.conf
+    dest: /etc/init/heartbeat_to_riemann.conf
+    owner: root
+    group: root
+    mode: 0777
+  when: ansible_os_family == "RedHat"
+
+- name: Check if systemd is present
+  command: /usr/bin/which systemd
+  register: systemd_stat
+  ignore_errors: yes
+  changed_when: False
+  when: ansible_os_family == "Debian"
+
+- name: Setup systemd script for heartbeat
+  template:
+    src: heartbeat_to_riemann.service
+    dest: /etc/systemd/system/heartbeat_to_riemann.service
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == "Debian" and systemd_stat.stdout == "/bin/systemd"
 
 - name: Start the heartbeat script for ubuntu
   service:
