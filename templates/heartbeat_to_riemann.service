@@ -4,3 +4,4 @@ Description=Heartbeat to Riemann
 [Service]
 Type=simple
 ExecStart=/usr/bin/python /root/riemannHeartbeat.py
+Restart=on-failure
